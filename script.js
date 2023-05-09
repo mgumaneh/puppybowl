@@ -1,7 +1,3 @@
-// These two variables are the container elements that your code should manipulate.
-const main = document.querySelector("main");
-const newPlayerForm = document.querySelector("#new-player-form");
-
 // Use the API_URL variable to make fetch requests to the API.
 // Replace the placeholder with your cohort name (ex: 2109-UNF-HY-WEB-PT)
 const cohortName = "YOUR COHORT NAME HERE";
@@ -93,7 +89,7 @@ const renderAllPlayers = (playerList) => {};
 const renderSinglePlayer = (player) => {};
 
 /**
- * Fills in the `newPlayerForm` with the appropriate inputs and a submit button.
+ * Fills in `<form id="new-player-form">` with the appropriate inputs and a submit button.
  * When the form is submitted, it should call `addNewPlayer`, fetch all players,
  * and then render all players to the DOM.
  */
@@ -114,4 +110,19 @@ const init = async () => {
   renderNewPlayerForm();
 };
 
-init();
+// This script will be run using Node when testing, so here we're doing a quick
+// check to see if we're in Node or the browser, and exporting the functions
+// we want to test if we're in Node.
+if (typeof window === "undefined") {
+  module.exports = {
+    fetchAllPlayers,
+    fetchSinglePlayer,
+    addNewPlayer,
+    removePlayer,
+    renderAllPlayers,
+    renderSinglePlayer,
+    renderNewPlayerForm,
+  };
+} else {
+  init();
+}
