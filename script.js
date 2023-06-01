@@ -9,6 +9,7 @@ const API_URL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}`;
  */
 const fetchAllPlayers = async () => {
   try {
+    // TODO
   } catch (err) {
     console.error("Uh oh, trouble fetching players!", err);
   }
@@ -21,6 +22,7 @@ const fetchAllPlayers = async () => {
  */
 const fetchSinglePlayer = async (playerId) => {
   try {
+    // TODO
   } catch (err) {
     console.error(`Oh no, trouble fetching player #${playerId}!`, err);
   }
@@ -33,6 +35,7 @@ const fetchSinglePlayer = async (playerId) => {
  */
 const addNewPlayer = async (playerObj) => {
   try {
+    // TODO
   } catch (err) {
     console.error("Oops, something went wrong with adding that player!", err);
   }
@@ -44,6 +47,7 @@ const addNewPlayer = async (playerObj) => {
  */
 const removePlayer = async (playerId) => {
   try {
+    // TODO
   } catch (err) {
     console.error(
       `Whoops, trouble removing player #${playerId} from the roster!`,
@@ -71,7 +75,9 @@ const removePlayer = async (playerId) => {
  * Note: this function should replace the current contents of `<main>`, not append to it.
  * @param {Object[]} playerList - an array of player objects
  */
-const renderAllPlayers = (playerList) => {};
+const renderAllPlayers = (playerList) => {
+  // TODO
+};
 
 /**
  * Updates `<main>` to display a single player.
@@ -86,7 +92,9 @@ const renderAllPlayers = (playerList) => {};
  * will call `renderAllPlayers` to re-render the full list of players.
  * @param {Object} player an object representing a single player
  */
-const renderSinglePlayer = (player) => {};
+const renderSinglePlayer = (player) => {
+  // TODO
+};
 
 /**
  * Fills in `<form id="new-player-form">` with the appropriate inputs and a submit button.
@@ -95,6 +103,7 @@ const renderSinglePlayer = (player) => {};
  */
 const renderNewPlayerForm = () => {
   try {
+    // TODO
   } catch (err) {
     console.error("Uh oh, trouble rendering the new player form!", err);
   }

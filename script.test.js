@@ -26,3 +26,11 @@ describe("fetchAllPlayers", () => {
     });
   });
 });
+
+// TODO: Tests for `fetchSinglePlayer`
+
+// TODO: Tests for `addNewPlayer`
+
+// (Optional) TODO: Tests for `removePlayer`
+
+// (Optional) TODO: Tests for `render` functions
