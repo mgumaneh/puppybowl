@@ -10,9 +10,15 @@ const API_URL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}`;
 const fetchAllPlayers = async () => {
   try {
     // TODO
+    const response = await fetch(`${API_URL}/players`)
+    console.log(response)
+    const json = await response.json();
+    console.log(json.data.players);
+    return (json.data.players);
   } catch (err) {
     console.error("Uh oh, trouble fetching players!", err);
-  }
+    return[];
+  } 
 };
 
 /**
@@ -23,6 +29,10 @@ const fetchAllPlayers = async () => {
 const fetchSinglePlayer = async (playerId) => {
   try {
     // TODO
+    const response = await fetch(`${API_URL}/players/${playerId}`)
+    console.log(response)
+    const playerId = await response.playerId();
+    console.log(playerId);
   } catch (err) {
     console.error(`Oh no, trouble fetching player #${playerId}!`, err);
   }
@@ -36,6 +46,18 @@ const fetchSinglePlayer = async (playerId) => {
 const addNewPlayer = async (playerObj) => {
   try {
     // TODO
+    const response = await fetch(`${API_URL}/players`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(playerObj),
+    });
+    if (!response.ok) {
+      throw new Error('Failed to add player');
+    }
+    const newPlayer = await response.json();
+    return newPlayer;
   } catch (err) {
     console.error("Oops, something went wrong with adding that player!", err);
   }
@@ -48,6 +70,13 @@ const addNewPlayer = async (playerObj) => {
 const removePlayer = async (playerId) => {
   try {
     // TODO
+    const response = await fetch(`${API_URL}/players/${playerId}`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to remove player #${playerId}`);
+    }
+    console.log(`Player #${playerId} has been successfully removed.`);
   } catch (err) {
     console.error(
       `Whoops, trouble removing player #${playerId} from the roster!`,
@@ -77,6 +106,44 @@ const removePlayer = async (playerId) => {
  */
 const renderAllPlayers = (playerList) => {
   // TODO
+  const renderAllPlayers = (playerList) => {
+    const mainElement = document.querySelector('main');
+    mainElement.innerHTML = ''; // Clear previous content
+  
+    playerList.forEach((player) => {
+      const playerCard = document.createElement('div');
+      playerCard.classList.add('player-card');
+  
+      const playerName = document.createElement('h2');
+      playerName.textContent = `Name: ${player.name}`;
+  
+      const playerId = document.createElement('p');
+      playerId.textContent = `ID: ${player.id}`;
+  
+      const playerBreed = document.createElement('p');
+      playerBreed.textContent = `Breed: ${player.breed}`;
+  
+      const playerImage = document.createElement('img');
+      playerImage.src = player.image;
+      playerImage.alt = player.name;
+
+      const backButton = document.createElement('button');
+    backButton.textContent = 'Back to all players';
+    backButton.addEventListener('click', () => {
+      renderAllPlayers(playerList); 
+
+    });
+
+    playerCard.appendChild(playerName);
+    playerCard.appendChild(playerId);
+    playerCard.appendChild(playerBreed);
+    playerCard.appendChild(playerImage);
+    playerCard.appendChild(backButton);
+
+    mainElement.appendChild(playerCard);
+  });
+};
+  
 };
 
 /**
@@ -94,7 +161,36 @@ const renderAllPlayers = (playerList) => {
  */
 const renderSinglePlayer = (player) => {
   // TODO
+  const renderSinglePlayer = (player) => {
+    const mainElement = document.querySelector('main');
+    mainElement.innerHTML = ''; // Clear main content
+  
+    const playerCard = document.createElement('div');
+    playerCard.classList.add('player-card');
+  
+    const playerName = document.createElement('h2');
+    playerName.textContent = player.name;
+  
+    const playerId = document.createElement('p');
+    playerId.textContent = `ID: ${player.id}`;
+  
+    const playerBreed = document.createElement('p');
+    playerBreed.textContent = `Breed: ${player.breed}`;
+  
+    const playerImage = document.createElement('img');
+    playerImage.src = player.image;
+    playerImage.alt = player.name;
+  
+    const backButton = document.createElement('button');
+    backButton.textContent = 'Back to all players';
+    backButton.addEventListener('click', renderAllPlayers);
+  
+    playerCard.append(playerName, playerId, playerBreed, playerImage, backButton);
+    mainElement.appendChild(playerCard);
+  };
+  renderSinglePlayer(playerData);
 };
+
 
 /**
  * Fills in `<form id="new-player-form">` with the appropriate inputs and a submit button.
